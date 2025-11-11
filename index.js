@@ -3,7 +3,7 @@ const MODEL_URL = 'WaterQuality_DeepMLP_Classifier.onnx';
 const FEATURE_NAMES = ['aluminium', 'ammonia', 'arsenic', 'barium', 'cadmium', 'chloramine', 'chromium', 'copper', 'flouride', 'bacteria', 'viruses', 'lead', 'nitrates', 'nitrites', 'mercury', 'perchlorate', 'radium', 'selenium', 'silver', 'uranium']
 const SAMPLE_ROW = [1.65, 9.08, 0.04, 2.85, 0.007, 0.35, 0.83, 0.17, 0.05, 0.2, 0, 0.054, 16.08, 1.13, 0.007, 37.75, 6.78, 0.08, 0.34, 0.02];
 
-// ====== DOM ======
+// ====== DOM =====
 const form = document.getElementById('form');
 const inputsDiv = document.getElementById('inputs');
 const statusEl = document.getElementById('status');
