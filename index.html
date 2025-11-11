@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Water Quality — ONNX Classifier (No Scaler)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root { --bg:#0f1420; --panel:#151b2a; --muted:#7c8aa5; --text:#e7edf7; --accent:#35c291; --border:#263148; }
+    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font:16px/1.4 system-ui,-apple-system,Segoe UI,Roboto,Arial}
+    .wrap{max-width:980px;margin:32px auto;padding:0 16px}
+    .card{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:22px}
+    h1{margin:0 0 8px;font-size:22px} .muted{color:var(--muted)}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    @media (max-width:720px){.grid{grid-template-columns:1fr}}
+    label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+    input[type=number]{width:100%;background:#0d1320;color:var(--text);border:1px solid var(--border);border-radius:10px;padding:10px 12px;outline:none}
+    input[type=number]:focus{border-color:#3a4f78}
+    .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:14px}
+    button{background:var(--accent);color:#07131a;border:0;border-radius:10px;padding:10px 16px;font-weight:600;cursor:pointer}
+    button.secondary{background:#22304b;color:var(--text)}
+    button:disabled{opacity:.6;cursor:default}
+    .status,.error,.result{margin-top:14px} .status{color:var(--muted)} .error{color:#e46b6b} .result{font-size:18px}
+    .threshold{display:flex;align-items:center;gap:10px;margin-top:12px} input[type=range]{width:220px}
+    textarea{width:100%;min-height:80px;background:#0d1320;color:var(--text);border:1px solid var(--border);border-radius:10px;padding:10px 12px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>Water Quality — ONNX Classifier (No Scaler)</h1>
+      <p class="muted">Enter raw feature values and click <b>Predict</b>. Model: <code id="modelName">…</code></p>
+
+      <form id="form" autocomplete="off">
+        <div id="inputs" class="grid"></div>
+
+        <div class="threshold">
+          <label for="thr">Threshold:</label>
+          <input id="thr" type="range" min="0" max="1" step="0.01" value="0.50" />
+          <span id="thrVal">0.50</span>
+        </div>
+
+        <div class="row">
+          <button id="predictBtn" type="submit">Predict</button>
+          <button id="loadSampleBtn" type="button" class="secondary">Load sample</button>
+          <button id="resetBtn" type="button" class="secondary">Reset</button>
+          <span id="status" class="status">Loading model…</span>
+        </div>
+
+        <details>
+          <summary>Paste a CSV row (N numbers)</summary>
+          <textarea id="csvArea" placeholder="v1, v2, …, vN"></textarea>
+          <div class="row"><button id="loadCsvBtn" type="button" class="secondary">Load row</button></div>
+        </details>
+      </form>
+
+      <div id="result" class="result"></div>
+      <div id="error" class="error"></div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web@1.19.2/dist/ort.min.js"></script>
+  <script src="index.js"></script>
+</body>
+</html>
